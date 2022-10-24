@@ -1,0 +1,14 @@
+{
+  "policies": [
+    "AliyunFCDefaultRolePolicy"
+  ],
+  "serviceName": "midway-http",
+  "functionNames": [
+    "midway-http/helloHttpService-handleHTTPEvent2",
+    "midway-http/helloHttpService-handleHTTPEven1"
+  ],
+  "domains": [
+    "hellohttpservice-handlehttpevent2.midway-http.1745242874736080.cn-hangzhou.fc.devsapp.net",
+    "hellohttpservice-handlehttpeven1.midway-http.1745242874736080.cn-hangzhou.fc.devsapp.net"
+  ]
+}

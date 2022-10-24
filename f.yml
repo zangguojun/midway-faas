@@ -1,0 +1,10 @@
+service:
+  name: midway-http
+
+provider:
+  name: aliyun
+  timeout: 3000
+
+custom:
+  customDomain:
+    domainName: auto
