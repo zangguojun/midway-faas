@@ -21,7 +21,7 @@ export class DingTIMERService {
 
   @ServerlessTrigger(ServerlessTriggerType.TIMER, {
     type: 'cron',
-    value: '0 9 * * *',
+    value: '0 0 9 * * *',
   })
   async handleHelloEvent(event: FC.TimerEvent) {
     const {
