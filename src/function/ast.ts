@@ -4,60 +4,39 @@ import {
   ServerlessTrigger,
   ServerlessTriggerType,
   Query,
+  Body,
 } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/faas';
 import { HttpService } from '@midwayjs/axios';
-import traverse from '@babel/traverse';
-import { parse } from '@babel/parser';
-import { fromPairs as _fromPairs } from 'lodash';
-import { ArrayExpression, ObjectExpression, Identifier } from '@babel/types';
-import { ASTParamsDTO } from '../dto/ast';
+import { FileParamEventDTO, StrParamEventDTO } from '../dto/ast';
+import { IAstService } from '../interface/ast';
 
 @Provide()
-export class ASTService {
+export class AstHTTPService {
   @Inject()
   ctx: Context;
 
   @Inject()
   httpService: HttpService;
 
+  @Inject()
+  astService: IAstService;
+
   @ServerlessTrigger(ServerlessTriggerType.HTTP, {
-    path: '/ast',
+    path: '/ast/file',
     method: 'get',
   })
-  async handleASTEvent(@Query() param: ASTParamsDTO) {
+  async handleFileEvent(@Query() param: FileParamEventDTO) {
     const { url, exportName } = param;
-    const { data: codeStr }: { data: string } = await this.httpService.get(url);
-    const ast = parse(codeStr, {
-      sourceType: 'module',
-    });
-    const routes = [] as Array<{ path: string; name?: string }>;
-    traverse(ast, {
-      VariableDeclaration: path => {
-        path.node.declarations.forEach(declaration => {
-          const { id, init } = declaration;
-          if ((id as Identifier).name === exportName) {
-            (init as ArrayExpression).elements.forEach(
-              (element: ObjectExpression) => {
-                const { type, properties } = element;
-                if (type === 'ObjectExpression') {
-                  const arrayPairs = [];
-                  properties?.forEach((property: any) => {
-                    const { key, value } = property;
-                    if (!key.name) return true;
-                    arrayPairs.push([
-                      key.name,
-                      value.rawValue || value.value || undefined,
-                    ]);
-                  });
-                  routes.push(_fromPairs(arrayPairs));
-                }
-              }
-            );
-          }
-        });
-      },
-    });
-    return routes
+    const { data: code }: { data: string } = await this.httpService.get(url);
+    return this.astService.parseAst({ code, exportName });
+  }
+
+  @ServerlessTrigger(ServerlessTriggerType.HTTP, {
+    path: '/ast/str',
+    method: 'post',
+  })
+  async handleStrEvent(@Body() param: StrParamEventDTO) {
+    return this.astService.parseAst(param);
   }
 }

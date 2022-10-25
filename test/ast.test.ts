@@ -14,12 +14,87 @@ describe('test/hello_aliyun.test.ts', () => {
     await close(app);
   });
 
-  it('should get /ast', async () => {
-    const result = await createHttpRequest(app).get('/ast').query({
+  it('should get /ast/file', async () => {
+    const result = await createHttpRequest(app).get('/ast/file').query({
       url: 'https://gitee.com/buaichiyu/spider/raw/master/route.js',
-      name: 'module.exports'
+      exportName: 'route'
     })
-    expect(result.text).toEqual('Hello Midway.js');
+    expect(result.text).toEqual(JSON.stringify([
+      {
+        "path": "/"
+      },
+      {
+        "path": "/auth/:type"
+      },
+      {
+        "path1": "/auth/:type",
+        "name": "layouts"
+      },
+      {
+        "path": "/page"
+      },
+      {
+        "path": "/page",
+        "name": "layouts"
+      },
+      {
+        "path": "/page/home",
+        "name": "HOME"
+      }
+    ]));
   });
+
+  it('should get /ast/str', async () => {
+    const result = await createHttpRequest(app).post('/ast/str').send({
+      code: `
+      import { name as packageName } from './package.json'
+
+      const name = '@/pages/auth'
+
+      const route = [
+        { path: '/', name: packageName },
+        { path: '/auth/:type', name },
+        { path1: '/auth/:type', name: 'layouts' },
+        {
+          path: '/page',
+          // component: '@/layouts',
+        },
+        {
+          path: '/page',
+          name: 'layouts',
+          // component
+        },
+        { path: '/page/home', name: 'HOME' },
+      ]
+
+      export default route
+      `,
+      exportName: 'route'
+    })
+    expect(result.text).toEqual(JSON.stringify([
+      {
+        "path": "/"
+      },
+      {
+        "path": "/auth/:type"
+      },
+      {
+        "path1": "/auth/:type",
+        "name": "layouts"
+      },
+      {
+        "path": "/page"
+      },
+      {
+        "path": "/page",
+        "name": "layouts"
+      },
+      {
+        "path": "/page/home",
+        "name": "HOME"
+      }
+    ]));
+  });
+
 
 });

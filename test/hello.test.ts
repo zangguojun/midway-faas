@@ -23,19 +23,19 @@ describe('test/hello_aliyun.test.ts', () => {
 
   it('should get /parseLog', async () => {
     const result = await createHttpRequest(app).get('/parseLog').query({
-      // url: 'https://gitee.com/tong-cli/hello_react/raw/main/package.json',
-      url: 'https://gitee.com/Balze/log/raw/main/internal/LICENSE.txt',
-      keys: ["THE", "IS"]
+      url: 'https://gitee.com/buaichiyu/spider/raw/master/LICENSE',
+      keys: ["Copyright", "SOFTWARE"]
     })
-    console.log(result.text)
-    // expect(result.text).toEqual('Hello Midway.js');
+    expect(result.text).toEqual(JSON.stringify({
+      "Copyright": [
+        "Copyright (c) 2022 buchiyu\r"
+      ],
+      "SOFTWARE": [
+        "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r",
+        "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r",
+        "SOFTWARE.\r"
+      ]
+    }));
   });
 
-  it('should get /reParseLog', async () => {
-    const result = await createHttpRequest(app).get('/reParseLog').query({
-      url: 'https://gitee.com/Balze/log/raw/main/internal/LICENSE.txt',
-      reMaps: ["/THE (.*?) IS", "IS"]
-    })
-    console.log(result.text)
-  });
 });
