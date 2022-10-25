@@ -24,9 +24,20 @@ export class DingTIMERService {
     value: '0 9 * * *',
   })
   async handleHelloEvent(event: FC.TimerEvent) {
+    const {
+      data: { data },
+    } = await this.httpService.get(
+      'https://api.vvhan.com/api/hotlist?type=bili'
+    );
     return this.dingService.sendMessage({
-      text: '你好！',
-      config: { msgtype: 'text' },
+      msgtype: 'feedCard',
+      feedCard: {
+        links: data.slice(0, 5)?.map(item => ({
+          title: `${item?.title}`,
+          messageURL: item?.mobilUrl,
+          picURL: item?.pic,
+        })),
+      },
     });
   }
 }

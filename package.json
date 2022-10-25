@@ -25,6 +25,7 @@
     "@midwayjs/decorator": "^3.6.0",
     "@midwayjs/faas": "^3.6.0",
     "@midwayjs/validate": "^3.6.0",
+    "crypto-js": "^4.1.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

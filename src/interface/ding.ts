@@ -1,6 +1,8 @@
+
 export interface IMessageOption {
-  text: string;
-  config: object;
+  text?: string;
+  msgtype: string;
+  feedCard?: object;
 }
 
 export interface IMessageResponse {
