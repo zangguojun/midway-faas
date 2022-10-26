@@ -1,6 +1,6 @@
 import { Inject, Provide } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/faas';
-import { IDingService, IMessageOption } from '../interface/ding';
+import { IDingService } from '../interface/ding';
 import { HttpService } from '@midwayjs/axios';
 import { webHookUrl } from '../utils/const';
 // import { getSign } from '../utils';
@@ -17,7 +17,7 @@ export class DingService implements IDingService {
   @Inject()
   httpService: HttpService;
 
-  async sendMessage(message: IMessageOption) {
+  async sendMessage(message) {
     const { data, status } = await this.httpService.post(
       webHookUrl,
       {

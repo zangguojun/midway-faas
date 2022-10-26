@@ -1,8 +1,15 @@
-
-export interface IMessageOption {
-  text?: string;
+export interface ITextMessage {
+  text: string;
   msgtype: string;
-  feedCard?: object;
+}
+
+export interface IFeedCardMessage {
+  msgtype: string;
+  feedCard: { links: any };
+}
+
+export interface ITemplateMessage {
+  cardTemplateId: string;
 }
 
 export interface IMessageResponse {
@@ -16,5 +23,7 @@ export interface IMessageResponseData {
 }
 
 export interface IDingService {
-  sendMessage(message: IMessageOption): Promise<IMessageResponse>;
+  sendMessage(message: ITextMessage): Promise<IMessageResponse>;
+  sendMessage(message: IFeedCardMessage): Promise<IMessageResponse>;
+  sendMessage(message: ITemplateMessage): Promise<IMessageResponse>;
 }

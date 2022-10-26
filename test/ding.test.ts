@@ -20,8 +20,14 @@ describe('test/ding.test.ts', () => {
     await close(app);
   });
 
-  it('should trigger timer', async () => {
+  it('should trigger timer handleHelloEvent', async () => {
     const result = await instance.handleHelloEvent(createTimerEvent());
     expect(result.success).toEqual(true);
   });
+
+  it('should trigger timer handleCardEvent', async () => {
+    const result = await instance.handleCardEvent(createTimerEvent());
+    expect(result.success).toEqual(true);
+  });
+
 });

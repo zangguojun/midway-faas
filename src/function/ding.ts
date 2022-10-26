@@ -40,4 +40,26 @@ export class DingTIMERService {
       },
     });
   }
+
+  @ServerlessTrigger(ServerlessTriggerType.TIMER, {
+    type: 'cron',
+    value: '0 0 9 * * *',
+  })
+  async handleCardEvent(event: FC.TimerEvent) {
+    const {
+      data: { data },
+    } = await this.httpService.get(
+      'https://api.vvhan.com/api/hotlist?type=bili'
+    );
+    return this.dingService.sendMessage({
+      msgtype: 'feedCard',
+      feedCard: {
+        links: data.slice(5, 10)?.map(item => ({
+          title: `${item?.title}`,
+          messageURL: item?.mobilUrl,
+          picURL: item?.pic,
+        })),
+      },
+    });
+  }
 }
