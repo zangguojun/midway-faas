@@ -1,4 +1,7 @@
-export const webHookUrl =
-  'https://oapi.dingtalk.com/robot/send?access_token=cbe7247e8eaaa42d0d808c65547ed561cf2a2563102b5ca77f8f4f275da4d9c6';
-export const botSecret =
-  'SEC263a8528e48caef81d255867a243f55b19fd89dd13e90f9011f0fc7a977fe075';
+export const JUEJIN_API = {
+  checkIn: 'https://api.juejin.cn/growth_api/v1/check_in',
+  drawApi: 'https://api.juejin.cn/growth_api/v1/lottery/draw',
+  globalBigApi:
+    'https://api.juejin.cn/growth_api/v1/lottery_history/global_big',
+  dipLuckyApi: 'https://api.juejin.cn/growth_api/v1/lottery_lucky/dip_lucky',
+};

@@ -25,9 +25,4 @@ describe('test/ding.test.ts', () => {
     expect(result.success).toEqual(true);
   });
 
-  it('should trigger timer handleCardEvent', async () => {
-    const result = await instance.handleCardEvent(createTimerEvent());
-    expect(result.success).toEqual(true);
-  });
-
 });

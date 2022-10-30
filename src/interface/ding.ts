@@ -1,6 +1,10 @@
+import { IResult } from './common';
+
 export interface ITextMessage {
-  text: string;
-  msgtype: string;
+  msgtype?: string;
+  text: {
+    content: string;
+  };
 }
 
 export interface IFeedCardMessage {
@@ -13,17 +17,12 @@ export interface ITemplateMessage {
 }
 
 export interface IMessageResponse {
-  success: boolean;
-  data: IMessageResponseData;
-}
-
-export interface IMessageResponseData {
   errcode: number;
   errmsg: string;
 }
 
 export interface IDingService {
-  sendMessage(message: ITextMessage): Promise<IMessageResponse>;
-  sendMessage(message: IFeedCardMessage): Promise<IMessageResponse>;
-  sendMessage(message: ITemplateMessage): Promise<IMessageResponse>;
+  sendMessage(message: ITextMessage): Promise<IResult<IMessageResponse>>;
+  sendMessage(message: IFeedCardMessage): Promise<IResult<IMessageResponse>>;
+  sendMessage(message: ITemplateMessage): Promise<IResult<IMessageResponse>>;
 }
