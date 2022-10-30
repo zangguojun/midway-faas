@@ -60,7 +60,7 @@ export class JuejinTIMERService {
 
   @ServerlessTrigger(ServerlessTriggerType.TIMER, {
     type: 'cron',
-    value: '0 45 8 * * *',
+    value: '0 35 8 * * *',
   })
   async handleDipLuckyEvent(event: FC.TimerEvent) {
     const { success, data: rst } = await this.juejinService.dipLucky();

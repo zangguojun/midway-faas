@@ -22,8 +22,7 @@ describe('test/oss.test.ts', () => {
 
   it('should trigger oss handleOssCreateEvent', async () => {
     const result = await instance.handleOssCreateEvent(createOSSEvent());
-    console.log("🚀~ 25  result", result);
-    // expect(result.success).toEqual(true);
+    expect(result.success).toEqual(true);
   });
 
 });
