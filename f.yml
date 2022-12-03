@@ -8,3 +8,6 @@ provider:
 custom:
   customDomain:
     domainName: auto
+package:
+  include:
+    .env
