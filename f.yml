@@ -10,4 +10,4 @@ custom:
     domainName: auto
 package:
   include:
-    .env
+    - .env

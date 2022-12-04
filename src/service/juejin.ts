@@ -37,6 +37,7 @@ export class JuejinService implements IJuejinService {
   }
 
   async dipLucky() {
+    console.log('🚀~ 40 dipLucky process.env.JUEJIN_COOKIE', process.env.JUEJIN_COOKIE);
     const { data: globalBigData } = await this.httpService.post(
       JUEJIN_API.globalBigApi,
       {

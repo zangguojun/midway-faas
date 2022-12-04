@@ -63,6 +63,7 @@ export class JuejinTIMERService {
     value: '0 35 8 * * *',
   })
   async handleDipLuckyEvent(event: FC.TimerEvent) {
+    console.log('🚀~ 66 handleDipLuckyEvent event', event);
     const { success, data: rst } = await this.juejinService.dipLucky();
     if (!success) {
       return this.dingService.sendMessage({ text: { content: '- 掘金沾喜气失败' } });
