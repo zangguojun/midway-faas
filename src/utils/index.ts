@@ -3,8 +3,10 @@ const hmacSHA256 = require('crypto-js/hmac-sha256');
 
 export const getSign = () => {
   const timestamp = +new Date();
-  const string_to_sign = `${timestamp}\n${process.env.BOT_SECRET}`;
-  const sign = Base64.stringify(hmacSHA256(string_to_sign, process.env.BOT_SECRET));
+  const secret = process.env.BOT_SECRET;
+  const string_to_sign = `${timestamp}\n${secret}`;
+  const hmac_code = hmacSHA256(string_to_sign, secret);
+  const sign = encodeURIComponent(Base64.stringify(hmac_code));
   return {
     sign,
     timestamp,

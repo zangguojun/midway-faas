@@ -19,6 +19,6 @@ export class OssOSService {
     },
   })
   async handleOssCreateEvent(event: FC.OSSEvent) {
-    return this.dingService.sendMessage({ text: { content: `- event${JSON.stringify(event)}` } });
+    return this.dingService.sendMessage({ text: { content: `event${JSON.stringify(event)}` } });
   }
 }
