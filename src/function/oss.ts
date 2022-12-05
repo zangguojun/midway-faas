@@ -19,7 +19,6 @@ export class OssOSService {
     },
   })
   async handleOssCreateEvent(event: FC.OSSEvent) {
-    console.log('🚀~ 22 handleOssCreateEvent process.env.BUCKET_NAME', process.env.BUCKET_NAME);
     return this.dingService.sendMessage({ text: { content: `- event${JSON.stringify(event)}` } });
   }
 }

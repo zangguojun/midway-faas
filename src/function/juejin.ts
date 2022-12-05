@@ -20,7 +20,7 @@ export class JuejinTIMERService {
 
   @ServerlessTrigger(ServerlessTriggerType.TIMER, {
     type: 'cron',
-    value: '0 25 8 * * *',
+    value: '0 25 0 * * *',
   })
   async handleCheckInEvent(event: FC.TimerEvent) {
     const { success, data: rst } = await this.juejinService.checkIn();
@@ -39,7 +39,7 @@ export class JuejinTIMERService {
 
   @ServerlessTrigger(ServerlessTriggerType.TIMER, {
     type: 'cron',
-    value: '0 30 8 * * *',
+    value: '0 30 0 * * *',
   })
   async handleDrawEvent(event: FC.TimerEvent) {
     const { success, data: rst } = await this.juejinService.draw();
@@ -60,10 +60,9 @@ export class JuejinTIMERService {
 
   @ServerlessTrigger(ServerlessTriggerType.TIMER, {
     type: 'cron',
-    value: '0 35 8 * * *',
+    value: '0 35 0 * * *',
   })
   async handleDipLuckyEvent(event: FC.TimerEvent) {
-    console.log('🚀~ 66 handleDipLuckyEvent event', event);
     const { success, data: rst } = await this.juejinService.dipLucky();
     if (!success) {
       return this.dingService.sendMessage({ text: { content: '- 掘金沾喜气失败' } });

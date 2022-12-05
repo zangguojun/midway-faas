@@ -1,9 +1,4 @@
-import {
-  Provide,
-  Inject,
-  ServerlessTrigger,
-  ServerlessTriggerType,
-} from '@midwayjs/decorator';
+import { Provide, Inject, ServerlessTrigger, ServerlessTriggerType } from '@midwayjs/decorator';
 import { Context, FC } from '@midwayjs/faas';
 import { HttpService } from '@midwayjs/axios';
 import { IDingService } from '../interface/ding';
@@ -21,14 +16,12 @@ export class DingTIMERService {
 
   @ServerlessTrigger(ServerlessTriggerType.TIMER, {
     type: 'cron',
-    value: '0 0 9 * * *',
+    value: '0 0 1 * * *',
   })
   async handleHelloEvent(event: FC.TimerEvent) {
     const {
       data: { data },
-    } = await this.httpService.get(
-      'https://api.vvhan.com/api/hotlist?type=bili'
-    );
+    } = await this.httpService.get('https://api.vvhan.com/api/hotlist?type=bili');
     return this.dingService.sendMessage({
       msgtype: 'feedCard',
       feedCard: {
