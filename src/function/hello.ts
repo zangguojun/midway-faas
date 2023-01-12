@@ -7,7 +7,7 @@ import {
 } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/faas';
 import { HttpService } from '@midwayjs/axios';
-import {Validate} from "@midwayjs/validate";
+import { Validate } from '@midwayjs/validate';
 
 @Provide()
 export class HelloHTTPService {

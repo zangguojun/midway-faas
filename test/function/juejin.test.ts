@@ -10,7 +10,7 @@ describe('test/juejin.test.ts', () => {
   let instance: JuejinTIMERService;
 
   beforeAll(async () => {
-    app = await createFunctionApp<ServerlessApp.Framework>(join(__dirname, '../'), {
+    app = await createFunctionApp<ServerlessApp.Framework>(join(__dirname, '../../'), {
       initContext: createInitializeContext(),
     });
     instance = await app.getServerlessInstance<JuejinTIMERService>(JuejinTIMERService);

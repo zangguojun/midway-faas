@@ -19,8 +19,14 @@ export class OssOSService {
     },
   })
   async handleOssCreateEvent(event: FC.OSSEvent) {
-    const { oss: { bucket: { name }, object: { key }}, region,  } = event?.events[0]
-    const url = `https://${name}.oss-${region}.aliyuncs.com/${key}`
+    const {
+      oss: {
+        bucket: { name },
+        object: { key },
+      },
+      region,
+    } = event?.events[0];
+    const url = `https://${name}.oss-${region}.aliyuncs.com/${key}`;
     return this.dingService.sendMessage({ text: { content: url } });
   }
 }

@@ -10,7 +10,7 @@ describe('test/ding.test.ts', () => {
   let instance: DingTIMERService;
 
   beforeAll(async () => {
-    app = await createFunctionApp<ServerlessApp.Framework>(join(__dirname, '../'), {
+    app = await createFunctionApp<ServerlessApp.Framework>(join(__dirname, '../../'), {
       initContext: createInitializeContext(),
     });
     instance = await app.getServerlessInstance<DingTIMERService>(DingTIMERService);

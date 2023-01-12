@@ -23,23 +23,18 @@ export class AstService implements IAstService {
         path.node.declarations.forEach(declaration => {
           const { id, init } = declaration;
           if ((id as Identifier).name === exportName) {
-            (init as ArrayExpression).elements.forEach(
-              (element: ObjectExpression) => {
-                const { type, properties } = element;
-                if (type === 'ObjectExpression') {
-                  const arrayPairs = [];
-                  properties?.forEach((property: any) => {
-                    const { key, value } = property;
-                    if (!key.name) return true;
-                    arrayPairs.push([
-                      key.name,
-                      value.rawValue || value.value || undefined,
-                    ]);
-                  });
-                  routes.push(_fromPairs(arrayPairs));
-                }
+            (init as ArrayExpression).elements.forEach((element: ObjectExpression) => {
+              const { type, properties } = element;
+              if (type === 'ObjectExpression') {
+                const arrayPairs = [];
+                properties?.forEach((property: any) => {
+                  const { key, value } = property;
+                  if (!key.name) return true;
+                  arrayPairs.push([key.name, value.rawValue || value.value || undefined]);
+                });
+                routes.push(_fromPairs(arrayPairs));
               }
-            );
+            });
           }
         });
       },
