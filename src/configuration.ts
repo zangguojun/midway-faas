@@ -6,11 +6,12 @@ import * as dotenv from 'dotenv';
 import * as faas from '@midwayjs/faas';
 import * as validate from '@midwayjs/validate';
 import * as axios from '@midwayjs/axios';
+import * as orm from '@midwayjs/typeorm';
 
 dotenv.config();
 
 @Configuration({
-  imports: [faas, validate, axios],
+  imports: [faas, validate, axios, orm],
   importConfigs: [join(__dirname, 'config')],
   conflictCheck: true,
 })
