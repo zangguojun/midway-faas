@@ -1,6 +1,6 @@
 import { Rule, RuleType } from '@midwayjs/validate';
 
-export class LoginDTO {
-  @Rule(RuleType.string().uri())
-  url: string;
+export class sendMessageDTO {
+  @Rule(RuleType.string().required())
+  text: string;
 }

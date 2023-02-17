@@ -2,8 +2,6 @@ import { Provide, Inject, ServerlessTrigger, ServerlessTriggerType, Query, UseGu
 import { Context} from '@midwayjs/faas';
 import { AuthGuard } from '../guard/auth.guard';
 
-console.log('🚀~ 4  AuthGuard', AuthGuard)
-
 @Provide()
 export class AuthService {
   @Inject()

@@ -1,27 +1,25 @@
-import { Inject, Provide } from '@midwayjs/decorator';
+import { Inject, Provide, Init, Scope, ScopeEnum } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/faas';
-import { IChatgptService } from '../interface/chatgpt';
+import { SendMessageOptions, IChatService, ChatGPTAPI } from '../interface/chatgpt';
 
 @Provide()
-export class ChatgptService implements IChatgptService {
+@Scope(ScopeEnum.Singleton)
+export class ChatService implements IChatService {
   @Inject()
   ctx: Context;
 
-  async login(param: any): Promise<any> {
-    const { ChatGPTAPIBrowser } = await eval("import('chatgpt')");
+  api: ChatGPTAPI
 
-    const api = new ChatGPTAPIBrowser({
-      email: process.env.OPENAI_EMAIL,
-      password: process.env.OPENAI_PASSWORD,
-      captchaToken: process.env.CAPTCHA_TOKEN,
-      debug: false,
-      minimize: true,
+  @Init()
+  async initMethod() {
+    const { ChatGPTAPI } = await eval("import('chatgpt')");
+
+    this.api = new ChatGPTAPI({
+      apiKey: process.env.OPENAI_API_KEY,
     });
+  }
 
-    await api.initSession();
-
-    const result = await api.sendMessage('Hello World!');
-    console.log(result.response);
-    return result.response;
+  async send(text: string, opts?: SendMessageOptions): Promise<any> {
+    return this.api.sendMessage(text, opts);
   }
 }

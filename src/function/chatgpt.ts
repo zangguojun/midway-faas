@@ -8,10 +8,11 @@ import {
 import { Context } from '@midwayjs/faas';
 import { Validate } from '@midwayjs/validate';
 import { HttpService } from '@midwayjs/axios';
-import { IChatgptService } from '../interface/chatgpt';
+import { IChatService } from '../interface/chatgpt';
+import { sendMessageDTO } from '../dto/chatgpt.dto'
 
 @Provide()
-export class ChatgptHTTPService {
+export class ChatHTTPService {
   @Inject()
   ctx: Context;
 
@@ -19,14 +20,16 @@ export class ChatgptHTTPService {
   httpService: HttpService;
 
   @Inject()
-  chatgptService: IChatgptService;
+  chatService: IChatService;
 
   @ServerlessTrigger(ServerlessTriggerType.HTTP, {
-    path: '/chatgpt/login',
+    path: '/chatgpt/send',
     method: 'get',
   })
   @Validate()
-  async handleLoginEvent(@Query() param: any) {
-    return this.chatgptService.login({});
+  async send(@Query() param: sendMessageDTO) {
+    const { text, ...opts } = param
+
+    return this.chatService.send(text, opts);
   }
 }

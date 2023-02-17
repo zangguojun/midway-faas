@@ -2,7 +2,7 @@ import { Inject, Provide } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/faas';
 import { IDingService } from '../interface/ding';
 import { HttpService } from '@midwayjs/axios';
-import { getSign } from '../utils';
+import { getSign } from '../lib/util';
 
 const defaultConfig = {
   msgtype: 'text',

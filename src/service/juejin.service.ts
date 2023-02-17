@@ -2,7 +2,7 @@ import { Inject, Provide } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/faas';
 import { HttpService } from '@midwayjs/axios';
 import { IJuejinService } from '../interface/juejin';
-import { JUEJIN_API } from '../utils/constant';
+import { JUEJIN_API } from '../lib/constant';
 
 @Provide()
 export class JuejinService implements IJuejinService {
