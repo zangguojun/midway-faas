@@ -1,5 +1,5 @@
-import Base64 from 'crypto-js/enc-base64'
-import hmacSHA256 from 'crypto-js/hmac-sha256'
+const Base64 = require('crypto-js/enc-base64');
+const hmacSHA256 = require('crypto-js/hmac-sha256');
 
 export const getSign = () => {
   const timestamp = +new Date();
